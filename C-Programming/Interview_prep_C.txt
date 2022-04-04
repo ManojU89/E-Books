@@ -1,0 +1,470 @@
+
+https://www.geeksforgeeks.org/data-structures/?ref=shm
+
+
+DS:
+===
+Pointers and arrays;
+=====================
+int arr[3] = {0};
+int *ptr=arr; // only pointing to first element
+ptr = &arr; // pointing to whole array
+
+pointer to array:
+int (*arr)[10];
+Array of pointers:
+int *arr[10];
+https://www.geeksforgeeks.org/difference-between-pointer-to-an-array-and-array-of-pointers/
+
+
+Linked list:
+============
+struct node {
+    int data;
+	struct node *next;
+};
+struct node *head;
+
+
+Insert begin:
+-------------
+void insertbegin(int data) {
+    struct node *ptr;
+	ptr = (struct node*)malloc(sizeof(struct node));
+	ptr->data = data;
+	if (head) 
+	    ptr->next = head;
+	head = ptr;
+}
+
+Insert last:
+------------
+void insertlast(int data) {
+    struct node *ptr,*temp;
+	ptr = (struct node*)malloc(sizeof(struct node));
+	ptr->data=data;
+	if (head == NULL) {
+	    head = ptr;
+		ptr->next = NULL;
+	} else { 
+	    temp = head;
+		while (temp && temp!=NULL)
+	    temp = temp->next;
+	}
+	temp->next = ptr;
+	ptr->next = NULL;
+}
+
+Insert random:
+--------------
+void insertrandom (int data, int loc) {
+    struct node *ptr,*temp;
+	ptr = (struct node*)malloc(sizeof(struct node));
+	ptr->data=data;
+	temp = head;
+	for (int i=0;i<loc;i++) {
+	    temp = temp->next;
+	}
+	ptr->next = temp->next;
+	temp->next = ptr;
+}
+
+Delete begin:
+-------------
+void deletebegin() {
+    struct node *temp;
+	temp = head;
+    if (head != NULL) {
+	    head = temp->next;
+	}
+	free(temp);
+}
+
+Delete last:
+-------------
+void deletelast() {
+    struct node *temp,*temp1;
+    temp = head;
+	if (head->next == NULL)
+	    free(head);
+    while (temp->next != NULL) {
+	    temp1 = temp;
+		temp = temp->next;
+	}
+	temp1->next - NULL;
+	free(temp);
+}
+
+Delete random:
+--------------
+void deleterandom(int loc) {
+    struct node *temp;
+	if (head == NULL)
+	    exit
+	else {
+	    temp = head;
+		for (int i =0; i<loc; i++) {
+		    temp = temp->next;
+		}
+		if (temp != NULL) {
+	    	temp1 = temp->next;
+		    temp->next = temp1->next;
+		    free(temp1);
+	    }
+	}
+}
+
+search:
+-------
+void search(int data) {
+    struct node *temp;
+    if (head == NULL) {
+        printf("List is empty!!");
+    } else {
+        temp = head;
+		while (temp != NULL) {
+		    if (temp->data == data) {
+		        printf("\n Data found:%d",data);
+				return;
+			} else 
+			    temp = temp->next;
+		}
+		printf("\n Data not found");
+	}
+}
+
+Display:
+--------
+void display() {
+    struct node *temp;
+    if (head ! = NULL) {
+	    temp = head;
+		while (temp != NULL) {
+		    printf("\n Data: %d", temp->data);
+			temp = temp->next;
+		}
+	}
+}
+https://www.javatpoint.com/singly-linked-list
+
+
+
+Swapping of two nodes in a linked list:
+========================================
+
+void swap(struct node **head, int x, int y) {
+    if (x == y)
+	    return;
+    
+	struct node *prevx, *currx;
+	currx = *head;
+	while (currx && currx->data !=x) {
+	    prevx = currx;
+		currx = currx->next;
+	}
+	
+	struct node *prevy, *curry;
+	curry = *head;
+	while (curry && curry->data !=y) {
+	    prevy = curry;
+		curry = curry->next;
+	}
+	
+	if (currx == NULL || curry == NULL)
+	    return;
+	
+	if (prevx != NULL) 
+	    prevx->next = curry;
+	else
+	    *head = curry;
+
+    if (prevy != NULL) 
+	    prevy->next = currx;
+	else
+	    *head = currx;
+
+    struct node *temp;
+    temp = currx->next;
+    currx->next = curry->next;
+	curry->next = temp;
+	
+}
+https://www.geeksforgeeks.org/swap-nodes-in-a-linked-list-without-swapping-data/
+
+
+Reverse a linked list:
+=======================
+
+void reverselinkedlist()
+{
+    struct node *current=*head, *prev=NULL, *next=NULL;
+    while (current != NULL) {
+	    next = current->next;
+		current->next = prev;
+		prev = current;
+		current = next;
+	} 
+	*head = prev;
+}
+https://www.geeksforgeeks.org/reverse-a-linked-list/
+
+
+Detect and remove the loop in a linked list:
+=============================================
+
+void removeloop(struct node*sp, struct node *head) {
+    struct node *ptr1, *ptr2;
+	ptr1 = head; 
+	ptr2 = sp;
+	while (ptr1->next != ptr2->next) {
+	    ptr1 = ptr1->next;
+		ptr2 = ptr2->next;
+	}
+	ptr2->next = NULL;
+}
+	
+
+void detectlinkedlist(struct node *head) {
+    struct node* sp=head, *fp=head;
+	while (sp && fp && fp->next) {
+	    sp = sp->next;
+		fp = fp->next->next;
+		if (sp == fp)
+		    removeloop(sp, head);
+	}
+}
+
+https://www.geeksforgeeks.org/detect-and-remove-loop-in-a-linked-list/
+https://www.codesdope.com/blog/article/detect-and-remove-loop-in-a-linked-list/
+
+
+
+Sorting a linked list:
+=======================
+
+void sorting(struct node *head) {
+    struct node	*temp,*index=NULL;
+	temp = head;
+	while (temp!=NULL) {
+	     index = temp->next;
+		 while(index!=NULL) {
+		     if (temp->data > index->data) {
+			     int samp;
+				 samp = temp->data;
+				 temp->data = index->data;
+				 index->data = samp;
+			}
+			index = index->next;
+		}
+		temp = temp->next;
+    }
+}
+
+https://www.javatpoint.com/program-to-sort-the-elements-of-the-singly-linked-list
+
+
+Rotate a linked list from given position:
+=========================================
+
+void rotate(struct node *head) {
+    struct node *current = head;
+	int i=0,k;
+	scanf("%d", &k);
+	
+	while ( i<k && current !=NULL) {
+	    current = current->next;
+	}
+	
+	if (current == NULL)
+	    return;
+	else {
+	    struct *kthnode = current;
+		while (current->next!=NULL)
+		    current = current->next;
+		current->next = head;	
+		head = kthnode->next;
+		kthnode->next = NULL;
+	}
+}
+https://www.geeksforgeeks.org/rotate-a-linked-list/
+	
+		
+ 	
+Reverse a doubly linked list:
+=============================
+
+struct node {
+    int data;
+	struct node *prev;
+	struct node *next;
+};
+	
+void reversedll(struct node *head) {
+    strcut node *current = head, temp = NULL;
+	while(current != NULL) {
+	    temp = current->prev;
+		current->prev = current->next;
+		current->next = temp;
+		current = current->prev;
+	}
+	
+	if(temp !=NULL)
+	    head = temp->prev;
+}
+https://www.geeksforgeeks.org/reverse-a-doubly-linked-list/
+
+
+STACK:
+=======
+
+struct stack {
+    int top;
+	char *array;
+	unsigned capacity;
+}
+Reverse a string using stack:
+https://www.geeksforgeeks.org/stack-set-3-reverse-string-using-stack/
+
+Linked list using Stack:
+========================
+struct node {
+    char data;
+	struct node *next;
+};
+
+push(char data) {
+    struct node *newnode = (struct node *) malloc (sizeof(struct node));
+    newnode->next = top;
+    newnode->data = data;
+    head = newnode;
+}
+
+pop() {
+    if (top == NULL)
+	     printf("Stack is empty");
+	else {
+	    temp = top;
+		top = top->next;
+		free(temp);
+	}
+}
+
+https://www.geeksforgeeks.org/return-maximum-occurring-character-in-the-input-string/
+
+QUEUE:
+======
+https://www.sanfoundry.com/c-program-queue-using-array/
+https://www.log2base2.com/data-structures/queue/queue-using-linked-list.html
+
+Storage classes: https://www.geeksforgeeks.org/storage-classes-in-c/
+Use of Volatile: https://www.geeksforgeeks.org/understanding-volatile-qualifier-in-c/
+
+Memory Management:
+==================
+https://www.geeksforgeeks.org/memory-layout-of-c-program/
+https://aticleworld.com/memory-layout-of-c-program/
+https://www.geeksforgeeks.org/g-fact-88/
+
+
+File Handling:
+===============
+https://www.geeksforgeeks.org/basics-file-handling-c/
+https://www.geeksforgeeks.org/to-find-sum-of-two-numbers-without-using-any-operator/
+
+POINTERS:
+=========
+Pointer notation: 
+nums[i][j] is equivalent to *(*(nums+i)+j)
+*&*&*ptr ---> *ptr
+*&*&ptr ---->  ptr (base address)
+https://www.geeksforgeeks.org/dangling-void-null-wild-pointers/
+https://www.geeksforgeeks.org/what-are-near-far-and-huge-pointers/
+
+Const qualifier: https://www.geeksforgeeks.org/const-qualifier-in-c/
+    Pointer to variable: int *ptr;
+	Pointer to constant: const int *ptr; or int const *ptr;
+    Constant pointer: int *const ptr;
+    Constant pointer to const: const int *const ptr;
+https://www.geeksforgeeks.org/difference-const-char-p-char-const-p-const-char-const-p/
+
+Pointer to an Array 
+--------------------
+data_type (*varname)[sizeofarray];
+
+Array of pointers:
+------------------
+data_type *arrptr[sizeofarray];
+
+Pointer to function:
+--------------------
+data_type (*func_ptr)(arguments data-type);
+func_ptr = func_name;
+
+Function Pointers in C:
+------------------
+Function_return_type(*Function_Pointer_name)(Function argument list);
+ 
+
+Here is an example :
+
+//It can point to function which takes an int as an argument and return nothing.
+void ( *fpData )( int );
+//It can point to function which takes a const char * as an argument and return nothing.
+void ( *pfDisplayMessage) (const char *);
+
+https://www.quora.com/What-is-the-difference-between-function-pointer-and-pointer-to-a-function
+https://aticleworld.com/memory-layout-of-c-program/
+https://hackaday.com/2018/05/02/directly-executing-chunks-of-memory-function-pointers-in-c/
+https://opensourceforu.com/2012/02/function-pointers-and-callbacks-in-c-an-odyssey/
+
+
+Pre-processor:
+==============
+There are 4 main types of preprocessor directives:  
+- Macros
+- File Inclusion
+- Conditional Compilation
+- Other directives
+
+https://www.geeksforgeeks.org/preprocessor-works-c/
+
+
+Arrays and strings:
+===================
+arr[0] and 0[arr] is same
+
+Storage of strings:  https://www.geeksforgeeks.org/storage-for-strings-in-c/
+Swap strings: https://www.geeksforgeeks.org/swap-strings-in-c/
+Allocate memory dynamically for Array: https://www.geeksforgeeks.org/dynamically-allocate-2d-array-c/
+
+https://www.geeksforgeeks.org/compiling-a-c-program-behind-the-scenes/
+
+Take input strings with space: 
+==============================
+scanf("%[^\n]*c", str);
+
+Structures:
+===========
+https://www.geeksforgeeks.org/structure-member-alignment-padding-and-data-packing/
+
+Validate IPv4 address:
+======================
+https://www.tutorialspoint.com/c-program-to-validate-an-ip-address
+
+Bitwise:
+========
+https://www.geeksforgeeks.org/add-two-numbers-without-using-arithmetic-operators/
+https://aticleworld.com/interview-questions-on-bitwise-operators-in-c/
+https://www.geeksforgeeks.org/how-to-swap-two-bits-in-a-given-integer/
+
+
+OS concepts:
+=============
+https://www.geeksforgeeks.org/operating-systems/?ref=gcse
+
+Thread sync program: mutex
+---------------------------
+https://www.geeksforgeeks.org/mutex-lock-for-linux-thread-synchronization/
+Priority Inversion vs Priority inheritance
+-------------------------------------------
+https://www.geeksforgeeks.org/difference-between-priority-inversion-and-priority-inheritance/

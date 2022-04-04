@@ -1,0 +1,174 @@
+Qualcommn
+
+uint8 range  // why ?
+sint8 range  // why ?
+
+reverese a array
+rotate a array by key say 3 
+//Input 12345
+output 34512
+
+Logic
+==
+reverse -==> 54321
+reverse first half -->34521
+reverse second half --> 34512
+
+print the array
+
+time/space complexity of above program
+
+//given an linear doubly linklist.Separate the linear doubly linked list to two circular at given postion k
+
+//given an single linked list with binaries . convert to integer
+eg: 0->0->1->0 o/p : 2  // try to do with bitwise
+
+
+// count the number of zeros bit set in the given integer (32 bit) in a single line
+// not sure how to do without loop
+
+//insert a node in doubly link list -- cover all cases like if begin/end/in a position
+
+// array of size 1000. find all duplicate elements in an arry
+
+//hackerrank questions
+
+o/p of given structure
+
+struct test
+{
+unsigned int a:1
+unsigned int b:32
+unsigned int c:1
+}
+
+struct test
+{
+unsigned int a:1
+unsigned int b:1
+unsigned int c:1
+}
+struct test
+{
+unsigned int a:1
+unsigned int b:31
+unsigned int c:1
+}
+
+Memory heirarchy 
+Risk archieture
+
+CSMA / csCD /CSCA
+7 layers
+TCP/IP Layer
+Difference b/w thread and process
+different b/w array and linkedlist
+process synchronziation
+scheduling
+Best search time/space complexity
+Algorithms 
+best sort why quick sort best time/space complexity
+
+
+1. I want to design a coffee vending system. My CVM can be on/off/in sleep mode.
+       i. When I switch on the CVM
+            a. A welcome message is displayed.
+            b  Various coffee types are shown and I am asked to make a choice.
+            c. If I make a choice that coffee is dispensed to me. If I make no choice for 5 mins, the machine goes to sleep.
+            d. There is a turn off option at the bottom of the screen, on pressing that the machine turns off
+            
+       ii.
+ii. In sleep mode the screen is off.
+            a. If I double tap on the screen, it comes to life.
+            b. Step i.b and i.c from above get executed.
+            c. There is a turn off option at the bottom of the screen, on pressing that the machine turns off
+            
+    Explain how you would design this and support your design with a flowchart.
+
+three state --> on, slee
+
+State 1: ON 
+	Event1:Bootup Complete 
+		Action1 : Welcome Msg; Timer On
+	Event2: Selection
+		Action2:  process the selection. 
+				if user selection done --> timer off -->dispensertimeron 
+	Event3: Turn off option
+		Action3:Go tp OFF state, timer off
+	Event 4: Timer expired
+		Action4: Go to Sleep state
+	Event 5: Process done
+		Action 5: dispensertimer off . Go to Sleep State
+State 2: OFF
+
+State 3: SLEEP
+
+        Event 1: Double tap on screen
+		A1: Go to State ON
+	Event2: Turn off option
+		Action3:Go tp OFF state
+
+
+# Networking 
+ 1.DHCP handshake, leasing time and other stuffs 
+#. Os basics
+  1. Memory layout
+  2. Preemption non-premption
+  3. Stack overflow reason 
+  4. Buffer overflow
+  5. Mutex vs semaphore 
+  6. Multi threading
+  7. Deadlock 
+  8. Context switching 
+
+Programming :
+ 1. Structure vs union 
+ 2. Reading 10th to 15th bits from a union without bitwise operator
+ 3. Linked list reverse, ispolindrome
+ 4. Bitwise set, unset and toggle
+ 5. Few coding snippet with pointers arithmatic and we have to tell them the expected output.
+
+#include<stdio.h>
+#include<string.h>
+int main(){
+ char *ptr = "hello";
+ char a[22];
+ *ptr = "world";
+ printf("\n%s %s",ptr, a);
+ return 0;
+}
+
+
+
+#include<stdio.h>
+int main()
+{
+ struct simp 
+ {
+  int i = 6;
+  char city[] = "chennai";
+ };
+ struct simp s1;
+ struct simp s2;
+ printf("%s",s1.city);
+ printf("%d", s1.i);
+ return 0;
+}
+
+#include<stdio.h>
+struct 
+{
+ int i;
+ float ft;
+}decl;
+int main() 
+{
+ decl.i = 4;
+ decl.ft = 7.96623;
+ printf("%d %.2f", decl.i, decl.ft);
+ return 0;
+}
+ Spinlock
+Paging TLB
+PCB
+State of process
